@@ -1,12 +1,17 @@
 pipeline{
-    agent any
+    agent{ docker { image 'node:14'
+            args '-u root:root'}}
     
     stages{
         stage('Dependency install'){
-            agent{ docker { image 'node:14'
-            args '-u root:root'}}
+            
             steps{
                 sh 'npm install'
+            }
+        }
+        stage('package'){
+            steps{
+                sh 'npm pack'
             }
         }
     }
